@@ -46,7 +46,8 @@ build/%.o: src/%.cpp $(INCLUDES)
 test: $(TEST)
 	./$(TEST)
 
-pi: #(EXECPI)
+pi: $(EXECPI)
+	./$(EXECPI)
 	
 
 clean:

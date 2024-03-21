@@ -10,9 +10,8 @@ clean_googletest: build_googletest
 
 CC = g++
 
-CFLAGS = -std=c++14 -Wall -Wextra -lgtest -lgtest_main -pthread
-
-ifeq($(DEBUG),1)
+CFLAGS = -std=c++17 -Wall -Wextra -pthread -lstdc++
+ifeq ($(DEBUG),1)
 	CFLAGS += -g
 else
 	CFLAGS += -O2
@@ -21,22 +20,34 @@ endif
 INCLUDES = \
 	include/LongNumber.hpp
 
+
 CFLAGS += -I $(abspath include)
 
-SOURCES = \
-	LongNumber.cpp \
-	longNumberTest.cpp \
+LDFLAGS=-lgtest -lgmock -lgmock_main -lgtest_main
+
+SOURCESPI = \
+  LongNumber.cpp \
 	CalculatePi.cpp
-OBJECTS = $(SOURCES:%.cpp=build/%.o)
+ 
+SOURCESTST = \
+  LongNumber.cpp \
+	longNumberTest.cpp
+ 
+
+   
+OBJECTSTST = $(SOURCESTST:%.cpp=build/%.o)
+OBJECTSPI = $(SOURCESPI:%.cpp=build/%.o)
+
 TEST = build/longNumberTest
 EXECPI = build/CalculatePi
 
-default: $(EXECUTABLE)
+default: $(TEST)
 
-$(TEST): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
-$(EXECPI): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+$(TEST): $(OBJECTSTST)
+	$(CC) $(CFLAGS) $(OBJECTSTST) -o $@ $(LDFLAGS)
+ 
+$(EXECPI): $(OBJECTSPI)
+	$(CC) $(CFLAGS) $(OBJECTSPI) -o $@
 
 
 build/%.o: src/%.cpp $(INCLUDES)

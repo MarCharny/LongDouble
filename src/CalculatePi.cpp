@@ -7,7 +7,7 @@ using namespace std;
 LongNumberDouble CalcPi(int p)
 {
     LongNumberDouble C = LongNumberDouble("426880");
-    C = C * LongNumberDouble((long double)sqrt(10005), p);
+    C = C * LongNumberDouble((long double)sqrt(10005));
     LongNumberDouble S = LongNumberDouble("0");
     LongNumberDouble Mq = LongNumberDouble("1");
     LongNumberDouble Lq = LongNumberDouble("13591409");
@@ -19,7 +19,7 @@ LongNumberDouble CalcPi(int p)
     Lq.SetDivDigits(p);
     Xq.SetDivDigits(p);
 
-    for (size_t q = 0; q < p / 14 + 1; q++) 
+    for (size_t q = 0; q < p / 14 + 1; q++)
     {
         LongNumberDouble t1 = Mq * Lq;
         LongNumberDouble t2 = t1 / Xq;
@@ -37,18 +37,18 @@ LongNumberDouble CalcPi(int p)
 
 int main()
 {
-	cout << "Enter precision : ";
-	int p;
-	cin >> p;
+    cout << "Enter precision : ";
+    int p;
+    cin >> p;
 
-	clock_t start = clock();
-	LongNumberDouble pi = CalcPi(p);
-	clock_t end = clock();
-	clock_t dur = (double)(end - start) / CLOCKS_PER_SEC;
+    clock_t start = clock();
+    LongNumberDouble pi = CalcPi(p);
+    clock_t end = clock();
+    clock_t dur = (double)(end - start) / CLOCKS_PER_SEC;
 
-	cout << "Result Pi: " << pi << '\n';
-	cout << "Duration: " << dur << '\n';
+    cout << "Result Pi: " << pi << '\n';
+    cout << "Duration: " << dur << '\n';
 
-	return 0;
+    return 0;
 }
 

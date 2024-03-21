@@ -42,7 +42,7 @@ public:
 	LongNumberDouble(const LongNumberDouble& lnd);
 	explicit LongNumberDouble(const char* str);
 	explicit LongNumberDouble(const string& str);
-	explicit LongNumberDouble(const long double lld, long div_dig);
+	explicit LongNumberDouble(const long double lld);
 	explicit LongNumberDouble(long long int lli);
 
 	bool GetIsNegative() const { return is_negative_; }

@@ -10,7 +10,7 @@
 
 using namespace std;
 
-string LDToString(long double value, long divdig)
+string LDToString(long double value)
 {
 	std::stringstream stream;
 	stream << value;
@@ -61,7 +61,7 @@ LongNumberDouble::LongNumberDouble(const char* str)
 	}
 }
 
-LongNumberDouble::LongNumberDouble(long double val, long divDig) : LongNumberDouble(LDToString(val, divDig)) {}
+LongNumberDouble::LongNumberDouble(long double val) : LongNumberDouble(LDToString(val)) {}
 
 LongNumberDouble::LongNumberDouble(long long int lli) : LongNumberDouble(to_string(lli)) {}
 
@@ -79,7 +79,7 @@ ostream& operator<<(ostream& os, const LongNumberDouble& lnd)
 		size_t idx = 0;
 		long int exp = lnd.GetExponent();
 
-		while (idx < lnd.GetDigits().size() && idx < exp)
+		while (idx < lnd.GetDigits().size() && (long int)idx < exp)
 		{
 			os << lnd.GetDigits()[idx++];
 		}
@@ -95,8 +95,8 @@ ostream& operator<<(ostream& os, const LongNumberDouble& lnd)
 	}
 	else
 	{
-		os << '0.';
-		for (size_t i = 0; i < lnd.GetExponent(); i++)
+		os << "0.";
+		for (size_t i = 0; (long int)i < lnd.GetExponent(); i++)
 		{
 			os << '0';
 		}
@@ -124,7 +124,7 @@ string LongNumberDouble::ToStr()
 		size_t idx = 0;
 		long int exp = this->GetExponent();
 
-		while (idx < this->GetDigits().size() && idx < exp)
+		while (idx < this->GetDigits().size() && (long int)idx < exp)
 		{
 			res.push_back((char)(this->GetDigits()[idx++] + '0'));
 		}
